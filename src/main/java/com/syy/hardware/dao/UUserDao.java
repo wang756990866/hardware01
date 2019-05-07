@@ -1,20 +1,17 @@
 package com.syy.hardware.dao;
 
-
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.syy.hardware.entity.User;
+import com.syy.hardware.entity.UserRole;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 @Mapper
-public interface UserMapper extends BaseMapper<User> {
+public interface UUserDao  extends BaseMapper<User> {
+    User findByName(String name);
 
-    @Select("getUserList")
-    List<User> getUserList();
-
-    Integer insert(User user);
+    List<UserRole>  selectByUid(String uid);
 }

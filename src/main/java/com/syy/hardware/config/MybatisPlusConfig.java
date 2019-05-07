@@ -21,4 +21,5 @@ public class MybatisPlusConfig {
         page.setDialectType("mysql");
         return page;
     }
+
 }

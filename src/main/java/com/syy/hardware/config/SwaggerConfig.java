@@ -29,6 +29,7 @@ public class SwaggerConfig {
         //.globalOperationParameters(pars);
     }
 
+
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("身份认证服务")
