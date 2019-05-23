@@ -7,17 +7,10 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
-import org.omg.CORBA.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,10 +21,9 @@ import java.util.Map;
  * @Data 2019/4/3 16:18
  * @Version 1.0
  **/
-@CrossOrigin(origins = "*")
 @RestController
 @Api(value = "/user", description = "用户登录")
-@ResponseBody
+@RequestMapping("/user")
 public class Login {
 
     private Logger logger = LoggerFactory.getLogger(ShiroRealm.class);
@@ -44,19 +36,11 @@ public class Login {
      * @return
      * @throws AuthenticationException
      */
-    @CrossOrigin(origins = "*")
-    @PostMapping("/login")
+    /*@RequestMapping(method={RequestMethod.GET, RequestMethod.POST },value = "/loginUser")
     @ResponseBody
     @ApiOperation(value="登录", notes="系统登录")
-    public Object loginUser(String userName, String passWord , HttpServletRequest request, HttpServletResponse response,
-                            @RequestBody Object student) throws AuthenticationException {
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-        response.setHeader("Access-Control-Max-Age", "3600");
-        response.addHeader("Access-Control-Allow-Headers", "*");
-        String s = request.toString();
-        String userName1 = request.getParameter("userName");
-        String s1 = student.toString();
+    @CrossOrigin(allowCredentials="true",maxAge = 3600,origins = "*")
+    public Object loginUser(String userName, String passWord ) throws AuthenticationException {
         boolean rememberMe = false;
         Map<String, Object> result = new HashMap<>();
         result.put("code", "200");
@@ -121,5 +105,14 @@ public class Login {
         }
 
         return result;
+    }*/
+
+
+    @PostMapping("/getUsers")
+    @ResponseBody
+    @ApiOperation(value="测试返回", notes="测试返回")
+    @CrossOrigin(allowCredentials="true",maxAge = 3600,origins = "*")
+    public String getUser(String userName ,String passWord){
+        return  "测试返回 userName : " +userName + "; passWord:"+ passWord;
     }
 }

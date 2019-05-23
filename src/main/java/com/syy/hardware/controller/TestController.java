@@ -9,10 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @ClassName TestController
@@ -30,41 +27,18 @@ public class TestController {
 
     @Autowired
     private UserMapper UserDao;
-    @Autowired
-    @Lazy
-    private UUserDao uUserDao;
-    @Autowired
-    @Lazy
-    private URoleDao uRoleDao;
-    @Autowired
-    @Lazy
-    private UPermissionDao uPermissionDao;
-    @Autowired
-    @Lazy
-    private com.syy.hardware.dao.UserRoleDao userRoleDao;
-
-    @Autowired
-    @Lazy
-    private  RolePermissionDao rolePermissionDao;
-    // 初始化 成功标识
-    boolean result = false;
-    // 初始化
-    User uUser = new User();
-    URole uRole = new URole();
-    UPermission uPermission = new UPermission();
-    UserRole userRole = new UserRole();
-    RolePermission rolePermission = new RolePermission();
 
     private Logger logger = LoggerFactory.getLogger(ShiroRealm.class);
 
-    @GetMapping("/getUsers")
+    @RequestMapping("/getUsers")
     @ResponseBody
     @ApiOperation(value="测试返回", notes="测试返回")
-    public String getUser(){
-
-
-        return  "测试返回";
+    @CrossOrigin(allowCredentials="true",maxAge = 3600,origins = "*")
+    public String getUser(String userName ,String passWord){
+        return  "测试返回 userName : " +userName + "; passWord:"+ passWord;
     }
+
+
     @GetMapping("/getTestString")
     @ResponseBody
     @ApiOperation(value="测试返回", notes="测试返回")
