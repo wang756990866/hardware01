@@ -24,7 +24,7 @@ logging:
           UserMapper: debug
 
 mybatis-plus:
-  mapper-locations: classpath:com.syy.hardware.mapper/*.xml
+  mapper-locations: classpath:com.syy.hardware.dao/*.xml
   type-aliases-package: com.syy.hardware.entity
   global-config:
     logic-delete-value: 0

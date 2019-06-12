@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syy.hardware.dao.HHardwareDao">
+
+    <select id="getHardwaresByItemsId" resultType="java.util.HashMap" parameterType="String">
+        SELECT  hh.hardware_name,hh.hardware_id,ha.attribute_name,hav.attribute_val,hav.attribute_val_id,
+        hhav.attribute_val_type,ha.attribute_code
+        FROM h_hardware hh
+        left join   h_hardware_attribute_val hhav on hh.hardware_id = hhav.hardware_id
+        left join  h_attribute ha on hhav.attribute_id = ha.attribute_id
+        left join  h_attribute_val hav on hhav.attribute_val_id = hav.attribute_val_id
+        where hh.items_id=#{items_branch}
+    </select>
+
+    <select id="getHardwaresByIdAndName" resultType="java.util.HashMap" parameterType="String">
+        SELECT  hh.hardware_name,hh.hardware_id,ha.attribute_name,hav.attribute_val,hav.attribute_val_id,
+        hhav.attribute_val_type,ha.attribute_code
+        FROM h_hardware hh
+        left join   h_hardware_attribute_val hhav on hh.hardware_id = hhav.hardware_id
+        left join  h_attribute ha on hhav.attribute_id = ha.attribute_id
+        left join  h_attribute_val hav on hhav.attribute_val_id = hav.attribute_val_id
+        where 1=1
+        <if test="items_id != null and items_id != ''">
+            and hh.items_id=#{items_id}
+        </if>
+        <if test="hardware_id != null and hardware_id != ''">
+            and hh.hardware_id LIKE CONCAT(CONCAT('%',#{hardware_id}),'%')
+        </if>
+        <if test="hardware_name != null and hardware_name != ''">
+            and hh.hardware_name LIKE CONCAT(CONCAT('%',#{hardware_name}),'%')
+        </if>
+
+    </select>
+
+</mapper>

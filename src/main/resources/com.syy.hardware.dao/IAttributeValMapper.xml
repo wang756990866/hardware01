@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syy.hardware.dao.IAttributeValDao">
+
+    <insert id="setattributeVal" parameterType="java.util.List">
+        INSERT INTO i_attribute_val(attribute_val_id,attribute_val,attribute_id) VALUES
+        <foreach collection="list" item="cost" index="index" separator=",">
+            (#{cost.attribute_val_id},#{cost.attribute_val},#{cost.attribute_id})
+        </foreach>
+    </insert>
+</mapper>

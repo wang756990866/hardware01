@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syy.hardware.dao.IItemsDao">
+
+    <select id="getItemsByIdAndName" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT  ia.attribute_id,iiav.items_id,it.items_name,it.items_branch,it.items_date,it.items_name,
+        it.user_id,ia.attribute_name_val, iav.attribute_val,iiav.attribute_val_type,ia.attribute_name
+        FROM i_items_attribute_val iiav
+        left join  i_items it on iiav.items_id = it.items_id
+        left join  i_attribute ia on iiav.attribute_id = ia.attribute_id
+        left join  i_attribute_val iav on iav.attribute_val_id = iiav.attribute_val_id
+        where 1=1
+        <if test="items_id !=null and items_id !=''">
+            and  it.items_id =#{items_id}
+        </if>
+        <if test="items_name !=null and items_name !=''">
+            and  it.items_name like CONCAT('%',#{items_name},'%')
+        </if>
+        <if test="items_years !=null and items_years !=''">
+            and  it.items_years =#{items_years}
+        </if>
+        <if test="items_branch !=null and items_branch !=''">
+            and  it.items_branch =#{items_branch}
+        </if>
+    </select>
+
+    <select id="getItemsVal" resultType="com.syy.hardware.entity.IItems" parameterType="com.syy.hardware.entity.IItems">
+        select * from  i_items
+    </select>
+
+</mapper>

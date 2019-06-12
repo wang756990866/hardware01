@@ -16,7 +16,6 @@ import java.io.Serializable;
 @TableName("u_role")
 @Data
 public class URole extends Model<URole> implements Serializable {
-
     private String id;
     private String name;
     private String type;
