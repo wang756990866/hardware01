@@ -38,6 +38,8 @@ public class IAttribute extends Model<IAttribute> implements Serializable {
     @ApiModelProperty(value = "属性为2的列表")
     @TableField(exist = false)
     private List<IAttributeVal> attributeList;
+
+
     @Override
     protected Serializable pkVal() {
         return this.attribute_id;

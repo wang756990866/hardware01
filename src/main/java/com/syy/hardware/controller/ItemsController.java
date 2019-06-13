@@ -4,11 +4,13 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.syy.hardware.Service.ItemsService;
 import com.syy.hardware.config.ShiroRealm;
 import com.syy.hardware.entity.IAttribute;
+import com.syy.hardware.entity.IAttributeVal;
 import com.syy.hardware.entity.IItems;
 import com.syy.hardware.util.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,4 +105,17 @@ public class ItemsController {
         return map;
     }
 
+    @RequestMapping("/itemsAttributeAdd")
+    @ResponseBody
+    @ApiOperation(value="添加项目属性", notes="添加属性")
+    @CrossOrigin(allowCredentials="true",maxAge = 3600,origins = "*")
+    public Map<Object,Object> itemsAttributeAdd(String data){
+        System.out.printf(data);
+        JSONObject jsonObject1 = JSONObject.fromObject(data);
+        JSONArray array=(JSONArray)jsonObject1.get("attributeList");
+        IAttribute data1=(IAttribute)JSONObject.toBean(jsonObject1, IAttribute.class);
+        int id = itemsService.itemsAttributeAdd(data1,array);
+        Map<Object, Object> map = response.supperReturn(data1);
+        return map;
+    }
 }

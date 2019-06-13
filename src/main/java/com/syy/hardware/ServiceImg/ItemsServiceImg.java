@@ -12,6 +12,8 @@ import com.syy.hardware.entity.IAttributeVal;
 import com.syy.hardware.entity.IItems;
 import com.syy.hardware.entity.IItemsAttributeVal;
 import com.syy.hardware.util.Uuid;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -268,5 +270,24 @@ public class ItemsServiceImg implements ItemsService {
         return insert;
     }
 
+    @Transactional
+    @Override
+    public int itemsAttributeAdd(IAttribute data1, JSONArray jsonArray){
+        String attributeId=uuid.getUUid();
+        if(data1.getAttribute_type() == "02" || "02".equals(data1.getAttribute_type())){
+            for (int i = 0; i < jsonArray.size(); i++) {
+                JSONObject object=(JSONObject)jsonArray.get(i);
+                String attribute_val = (String)object.get("attribute_val");
+                IAttributeVal attributeVal=new IAttributeVal();
+                attributeVal.setAttribute_val_id(uuid.getUUid());
+                attributeVal.setAttribute_val(attribute_val);
+                attributeVal.setAttribute_id(attributeId);
+                attributeValDao.insert(attributeVal);
+            }
+        }
+        data1.setAttribute_id(attributeId);
+        attributeDao.insert(data1);
+        return 0;
+    }
 
 }
