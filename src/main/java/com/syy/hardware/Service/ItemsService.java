@@ -21,4 +21,14 @@ public interface ItemsService {
     int setItems(List<IAttribute> data,String items_branch,String items_years);
 
     int itemsAttributeAdd(IAttribute data1, JSONArray jsonArray);
+
+    List<IAttribute> getItemsAttribute();
+
+    int itemAttributeDelete(String attribute_id);
+
+    int itemsDelete(String items_id);
+
+    int  itemAttributeUpdate(IAttribute data1);
+
+    int itemsUpdate(List<IAttribute> data1,String items_id);
 }

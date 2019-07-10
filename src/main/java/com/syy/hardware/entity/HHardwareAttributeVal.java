@@ -29,6 +29,7 @@ public class HHardwareAttributeVal implements Serializable {
     private String attribute_val_id;
     @ApiModelProperty(value = "属性 的类型")
     private String attribute_val_type;
-
+    @ApiModelProperty(value = "属性 的类型")
+    private String classify_id;
 
 }

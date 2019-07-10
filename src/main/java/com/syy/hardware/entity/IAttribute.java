@@ -31,7 +31,7 @@ public class IAttribute extends Model<IAttribute> implements Serializable {
     @ApiModelProperty(value = "属性 的类型")
     private String attribute_type;
 
-    @ApiModelProperty(value = "属性为2的列表")
+    @ApiModelProperty(value = "属性 输入值")
     @TableField(exist = false)
     private String attributeQVal;
 

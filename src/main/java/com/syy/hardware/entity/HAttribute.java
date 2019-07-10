@@ -30,6 +30,8 @@ public class HAttribute extends Model<HAttribute> implements Serializable {
     private String attribute_code;
     @ApiModelProperty(value = "属性 的类型")
     private String attribute_type;
+    @ApiModelProperty(value = "属性 的类型")
+    private String classify_id;
 
     @ApiModelProperty(value = "属性为2的值")
     @TableField(exist = false)
@@ -39,7 +41,7 @@ public class HAttribute extends Model<HAttribute> implements Serializable {
     @TableField(exist = false)
     private List<HAttributeVal> attributeList;
 
-    @ApiModelProperty(value = "属性为2的列表")
+    @ApiModelProperty(value = "属性为1的ID")
     @TableField(exist = false)
     private String attributeValId;
     @Override

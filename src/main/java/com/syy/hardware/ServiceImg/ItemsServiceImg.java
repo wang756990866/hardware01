@@ -7,10 +7,7 @@ import com.syy.hardware.dao.IAttributeDao;
 import com.syy.hardware.dao.IAttributeValDao;
 import com.syy.hardware.dao.IItemsAttributeValDao;
 import com.syy.hardware.dao.IItemsDao;
-import com.syy.hardware.entity.IAttribute;
-import com.syy.hardware.entity.IAttributeVal;
-import com.syy.hardware.entity.IItems;
-import com.syy.hardware.entity.IItemsAttributeVal;
+import com.syy.hardware.entity.*;
 import com.syy.hardware.util.Uuid;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -273,6 +270,7 @@ public class ItemsServiceImg implements ItemsService {
     @Transactional
     @Override
     public int itemsAttributeAdd(IAttribute data1, JSONArray jsonArray){
+
         String attributeId=uuid.getUUid();
         if(data1.getAttribute_type() == "02" || "02".equals(data1.getAttribute_type())){
             for (int i = 0; i < jsonArray.size(); i++) {
@@ -286,7 +284,80 @@ public class ItemsServiceImg implements ItemsService {
             }
         }
         data1.setAttribute_id(attributeId);
-        attributeDao.insert(data1);
+        Integer insert = attributeDao.insert(data1);
+        return insert;
+    }
+
+    @Override
+    public List<IAttribute> getItemsAttribute(){
+
+        List<IAttribute> list=attributeDao.selectList(
+                new EntityWrapper<IAttribute>()
+        );
+
+        for (int i = 0; i < list.size(); i++) {
+            IAttribute hAttribute = list.get(i);
+            if (hAttribute.getAttribute_type() == "02" || "02".equals(hAttribute.getAttribute_type())){
+                List<IAttributeVal> hAttributeValList= attributeValDao.selectValById(hAttribute.getAttribute_id());
+                hAttribute.setAttributeList(hAttributeValList);
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public int itemAttributeDelete(String attribute_id){
+        int i =1;
+        Integer integer = attributeDao.deleteByAttributeId(attribute_id);
+
+        Integer integer1 =itemsAttributeValDao.deleteByAttributeId(attribute_id);
+        return integer;
+    }
+
+    @Override
+    @Transactional
+    public int itemsDelete(String items_id){
+        Integer integer = itiemsDao.deleteByItemsId(items_id);
+        return integer;
+    }
+
+    @Override
+    @Transactional
+    public int  itemAttributeUpdate(IAttribute data1){
+        String attribute_type = data1.getAttribute_type();
+
+
+        //Integer integer = attributeDao.updateOne(data1);
+
+        return 0;
+    }
+
+    @Override
+    @Transactional
+    public int itemsUpdate(List<IAttribute> data,String items_id){
+        String codetype="";
+        String codeid="";
+        for (int i = 0; i < data.size(); i++) {
+
+            IAttribute ha=data.get(i);
+            //代号
+            String hardwareName=ha.getAttribute_name();
+            //类型
+            String attribute_type=ha.getAttribute_type();
+            //输入值
+            String attribute_QVal=ha.getAttributeQVal();
+
+            if("名称".equals(hardwareName)||"名称" == hardwareName){
+                itiemsDao.updateNameById(attribute_QVal,items_id);
+            }else{
+
+                if("01".equals(attribute_type) || "01" == attribute_type ){
+
+                }
+
+            }
+        }
+
         return 0;
     }
 

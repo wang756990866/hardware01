@@ -4,22 +4,31 @@
 
     <select id="getHardwaresByItemsId" resultType="java.util.HashMap" parameterType="String">
         SELECT  hh.hardware_name,hh.hardware_id,ha.attribute_name,hav.attribute_val,hav.attribute_val_id,
-        hhav.attribute_val_type,ha.attribute_code
+        hhav.attribute_val_type,ha.attribute_code,hac.classify_id,hac.classify_name,hac.classify_code
+
         FROM h_hardware hh
         left join   h_hardware_attribute_val hhav on hh.hardware_id = hhav.hardware_id
         left join  h_attribute ha on hhav.attribute_id = ha.attribute_id
         left join  h_attribute_val hav on hhav.attribute_val_id = hav.attribute_val_id
+        left join  h_attribute_classify hac on hac.classify_id = hh.classify_id
         where hh.items_id=#{items_branch}
     </select>
 
     <select id="getHardwaresByIdAndName" resultType="java.util.HashMap" parameterType="String">
         SELECT  hh.hardware_name,hh.hardware_id,ha.attribute_name,hav.attribute_val,hav.attribute_val_id,
-        hhav.attribute_val_type,ha.attribute_code
+        hhav.attribute_val_type,ha.attribute_code,hac.classify_id,hac.classify_name,hac.classify_code
         FROM h_hardware hh
         left join   h_hardware_attribute_val hhav on hh.hardware_id = hhav.hardware_id
         left join  h_attribute ha on hhav.attribute_id = ha.attribute_id
         left join  h_attribute_val hav on hhav.attribute_val_id = hav.attribute_val_id
+        left join  h_attribute_classify hac on hac.classify_id = hh.classify_id
         where 1=1
+        <if test="hardware_classify != null and hardware_classify != ''">
+            and hh.classify_id=#{hardware_classify}
+        </if>
+        <if test="hardware_codeType != null and hardware_codeType != ''">
+            and hh.code_type=#{hardware_codeType}
+        </if>
         <if test="items_id != null and items_id != ''">
             and hh.items_id=#{items_id}
         </if>
@@ -29,7 +38,14 @@
         <if test="hardware_name != null and hardware_name != ''">
             and hh.hardware_name LIKE CONCAT(CONCAT('%',#{hardware_name}),'%')
         </if>
+        <if test="attribute_val != null and attribute_val != ''">
+            and hav.attribute_val LIKE CONCAT(CONCAT('%',#{attribute_val}),'%')
+        </if>
 
     </select>
 
+    <insert id="insertHardware" parameterType="com.syy.hardware.entity.HHardware">
+      insert  into h_hardware(hardware_id , hardware_name , items_id , hardware_date, code_type,classify_id)
+      values (#{hardware_id},#{hardware_name},#{items_id},#{hardware_date},#{code_type},#{classify_id})
+    </insert>
 </mapper>

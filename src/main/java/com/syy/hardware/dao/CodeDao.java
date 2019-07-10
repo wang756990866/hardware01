@@ -16,8 +16,8 @@ public interface CodeDao extends BaseMapper<Code> {
     @Select("select * from code where code_itemsId = #{items_id} and code_type = #{ClassName}")
     List<Code>  getCodeByClsaaAndItemsId(String items_id,String ClassName);
 
-    @Select("select code_id from code where code_itemsId = #{items_id} and code_type = #{classify}and code_id LIKE CONCAT('%',#{queryString},'%') ")
-    List<Code>  getCodeByName(String queryString,String items_id,String classify);
+    @Select("select code_id from code where code_itemsId = #{items_id} and code_type = #{classify} and code_id LIKE CONCAT('%',#{queryString},'%') and code_states = #{code_states}")
+    List<Code>  getCodeByName(String queryString,String items_id,String classify,String code_states);
 
     @Update("update code set code_states=#{code_states} where code_id =#{codeid}")
     int updateOneById(String codeid,String code_states);

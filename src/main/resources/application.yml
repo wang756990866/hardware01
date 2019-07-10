@@ -1,5 +1,5 @@
 server:
-  port: 8011
+  port: 8086
   tomcat:
     uri-encoding: UTF-8
 
@@ -31,5 +31,5 @@ mybatis-plus:
     logic-not-delete-value: 0
     sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
 #  打印SQL
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

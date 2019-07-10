@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.syy.hardware.entity.HAttribute;
 import com.syy.hardware.entity.HAttributeVal;
 import com.syy.hardware.entity.HHardware;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -34,5 +32,14 @@ public interface HHardwareDao extends BaseMapper<HHardware> {
     @Update("update h_hardware set hardware_name=#{hardwareName} where hardware_id=#{hardware_id}")
     int updateNameById(String hardwareName,String hardware_id);
 
-    List<Map<Object, Object>> getHardwaresByIdAndName(String items_id,String hardware_id,String hardware_name);
+    List<Map<Object, Object>> getHardwaresByIdAndName(String hardware_classify,String hardware_codeType,String items_id,String hardware_id,String hardware_name,String attribute_val);
+
+    @Delete("delete from h_hardware where hardware_id =#{hardware_id}")
+    int deleteByHardwareId(String hardware_id);
+
+    /*@Insert("insert into h_hardware(hardware_id , hardware_name , items_id , hardware_date)")*/
+    Integer insertHardware(HHardware hardware);
+
+    @Update("update h_hardware set code_type=#{code_type} where hardware_id=#{hardware_id}")
+    void updateCodeType(String hardware_id,String code_type);
 }

@@ -2,6 +2,7 @@ package com.syy.hardware.dao;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.syy.hardware.entity.HHardwareAttributeVal;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -20,4 +21,7 @@ public interface HHardwareAttributeValDao extends BaseMapper<HHardwareAttributeV
 
     @Select("select attribute_val_id from h_hardware_attribute_val where hardware_id = #{hardware_id} and attribute_id =#{attribute_id}")
     HHardwareAttributeVal getHhavByHidAndAid(String hardware_id ,String attribute_id);
+
+    @Delete("delete from h_hardware_attribute_val where attribute_id = #{attribute_id}")
+    int deleteByHardwareId(String attribute_id);
 }

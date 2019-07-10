@@ -2,8 +2,10 @@ package com.syy.hardware.dao;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.syy.hardware.entity.IItems;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -27,4 +29,10 @@ public interface IItemsDao extends BaseMapper<IItems> {
 
     @Select("SELECT * from i_items where items_id = #{itemsId}")
     IItems getOneItemsById(String itemsId);
+
+    @Delete("delete from i_items where items_id =#{items_id}")
+    Integer deleteByItemsId(String items_id);
+
+    @Update("update i_items set items_name=#{attribute_QVal} where items_id =#{items_id}")
+    Integer updateNameById(String attribute_QVal,String items_id);
 }

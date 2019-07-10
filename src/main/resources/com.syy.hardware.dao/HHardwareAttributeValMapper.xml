@@ -2,11 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.syy.hardware.dao.HHardwareAttributeValDao">
 
-    <insert id="setItemsAttributeVal" parameterType="java.util.List">
-        INSERT INTO h_hardware_attribute_val(hid,hardware_id,attribute_id,attribute_val_id,attribute_val_type) VALUES
-        <foreach collection="list" item="cost" index="index" separator=",">
-            (#{cost.hid},#{cost.hardware_id},#{cost.attribute_id},#{cost.attribute_val_id},#{cost.attribute_val_type})
-        </foreach>
+    <insert id="setItemsAttributeVal" >
+
     </insert>
 
 </mapper>

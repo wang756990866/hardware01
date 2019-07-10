@@ -47,6 +47,14 @@ public class ShiroRealm extends AuthorizingRealm {
     private RolePermissionDao rolePermissionDao;
 
 
+    /**
+     * 必须重写此方法，不然Shiro会报错
+     */
+    /*@Override
+    public boolean supports(AuthenticationToken token) {
+        return token instanceof JwtToken;
+    }*/
+
 
     /**
      * 权限认证

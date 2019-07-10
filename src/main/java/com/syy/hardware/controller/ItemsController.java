@@ -3,6 +3,7 @@ package com.syy.hardware.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.syy.hardware.Service.ItemsService;
 import com.syy.hardware.config.ShiroRealm;
+import com.syy.hardware.entity.HAttribute;
 import com.syy.hardware.entity.IAttribute;
 import com.syy.hardware.entity.IAttributeVal;
 import com.syy.hardware.entity.IItems;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -115,7 +117,80 @@ public class ItemsController {
         JSONArray array=(JSONArray)jsonObject1.get("attributeList");
         IAttribute data1=(IAttribute)JSONObject.toBean(jsonObject1, IAttribute.class);
         int id = itemsService.itemsAttributeAdd(data1,array);
-        Map<Object, Object> map = response.supperReturn(data1);
+        Map<Object, Object> map = response.supperReturn(id);
+        return map;
+    }
+
+
+    @RequestMapping("/getItemsAttribute")
+    @ResponseBody
+    @ApiOperation(value="查询项目属性列表", notes="查询项目属性列表")
+    @CrossOrigin(allowCredentials="true",maxAge = 3600,origins = "*")
+    public Map<Object, Object> getItemsAttribute(){
+
+        List<IAttribute> list= itemsService.getItemsAttribute();
+
+        Map<Object, Object> map = response.supperReturn(list);
+        return map;
+    }
+
+
+    @RequestMapping("/itemAttributeDelete")
+    @ResponseBody
+    @ApiOperation(value="根据ID删除属性", notes="根据ID删除属性")
+    @CrossOrigin(allowCredentials="true",maxAge = 3600,origins = "*")
+    public Map<Object, Object> itemAttributeDelete(String attribute_id){
+
+        int i= itemsService.itemAttributeDelete(attribute_id);
+
+        Map<Object, Object> map = response.supperReturn(i);
+        return map;
+    }
+
+    @RequestMapping("/itemsDelete")
+    @ResponseBody
+    @ApiOperation(value="根据ID删除项目", notes="根据ID删除项目")
+    @CrossOrigin(allowCredentials="true",maxAge = 3600,origins = "*")
+    public Map<Object, Object> itemsDelete(String items_id){
+
+        int i= itemsService.itemsDelete(items_id);
+
+        Map<Object, Object> map = response.supperReturn(i);
+        return map;
+    }
+
+
+    @RequestMapping("/itemAttributeUpdate")
+    @ResponseBody
+    @ApiOperation(value="根据ID修改项目属性（具体属性）", notes="根据ID修改项目属性")
+    @CrossOrigin(allowCredentials="true",maxAge = 3600,origins = "*")
+    public Map<Object, Object> itemAttributeUpdate(String data){
+
+        JSONObject jsonObject1 = JSONObject.fromObject(data);
+        jsonObject1.get("");
+
+        IAttribute data1=(IAttribute)JSONObject.toBean(jsonObject1, IAttribute.class);
+        int i = itemsService.itemAttributeUpdate(data1);
+        Map<Object, Object> map = response.supperReturn(i);
+        return map;
+    }
+
+    @RequestMapping("/itemsUpdate")
+    @ResponseBody
+    @ApiOperation(value="修改项目属性值", notes="修改项目属性值")
+    @CrossOrigin(allowCredentials="true",maxAge = 3600,origins = "*")
+    public Map<Object, Object> itemsUpdate(String data,String items_id){
+
+        JSONArray jsonObject1 = JSONArray.fromObject(data);
+        List<IAttribute> list=new ArrayList<IAttribute>();
+        for (int i = 0; i < jsonObject1.size(); i++) {
+            JSONObject o = (JSONObject)jsonObject1.get(i);
+            IAttribute data1=(IAttribute)JSONObject.toBean(o, IAttribute.class);
+            list.add(data1);
+        }
+
+        int i = itemsService.itemsUpdate(list,items_id);
+        Map<Object, Object> map = response.supperReturn(i);
         return map;
     }
 }

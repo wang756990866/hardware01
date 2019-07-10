@@ -25,8 +25,14 @@ public class HHardware extends Model<HHardware> implements Serializable {
     private String hardware_name;
     @ApiModelProperty(value = "项目 的id")
     private String items_id;
-    @ApiModelProperty(value = "项目 的添加时间")
+    @ApiModelProperty(value = "硬件最后修改时间 的添加时间")
     private String hardware_date;
+    @ApiModelProperty(value = "硬件最后修改人 的添加时间")
+    private String user_id;
+    @ApiModelProperty(value = "二维码状态 的类型")
+    private String code_type;
+    @ApiModelProperty(value = "硬件 的类型")
+    private String classify_id;
 
     @Override
     protected Serializable pkVal() {
